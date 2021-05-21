@@ -31,7 +31,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release
+    - name: Publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/Animaltest
     - name: Test
       run: dotnet test --filter FullyQualifiedName\!~FunctionalTests
     - name: Upload a Build Artifact
@@ -40,5 +42,5 @@ jobs:
       # Artifact name
         name: a
        # A file, directory or wildcard pattern that describes what to upload
-        path: /home/runner/work/AnimalTest/AnimalTest/*
+        path: ${{env.DOTNET_ROOT}}/Animaltest
        # The desired behavior if no files are found using the provided path.
