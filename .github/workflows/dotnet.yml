@@ -44,3 +44,24 @@ jobs:
        # A file, directory or wildcard pattern that describes what to upload
         path: ${{env.DOTNET_ROOT}}/Animaltest
        # The desired behavior if no files are found using the provided path.
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: a
+
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'AnimalWeb'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.test}}
+        package: .
