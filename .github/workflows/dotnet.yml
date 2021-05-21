@@ -27,5 +27,5 @@ jobs:
       # Artifact name
         name: a
        # A file, directory or wildcard pattern that describes what to upload
-        path: ${{env.DOTNET_ROOT}}/myapp
+        path: /home/runner/work/AnimalTest/AnimalTest/*
        # The desired behavior if no files are found using the provided path.
