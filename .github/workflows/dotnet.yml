@@ -8,7 +8,7 @@ jobs:
   build:
     env:
       GitHubPackageFeedUrl: https://nuget.pkg.github.com/(your-organisation-name)/index.json
-      LogicProjectPath: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logic
+      LogicProjectPath: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logics
 
     runs-on: ubuntu-latest
 
