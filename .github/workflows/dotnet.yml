@@ -79,8 +79,6 @@ jobs:
         publish-profile: ${{ secrets.test}}
         package: .
         
-   
-        
         
     - name: Azure App Service Settings
       uses: Azure/appservice-settings@v1
@@ -90,7 +88,7 @@ jobs:
     # Name of an existing slot other than the production slot. Default value is production
         slot-name: production
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
-        app-settings-json: '[{"name": ${{steps.myGetSecretAction.outputs.yuritest}},"value": ${{steps.myGetSecretAction.outputs.yurikey}},"slotSetting": false}]'
+        app-settings-json: '{"name": ${{steps.myGetSecretAction.outputs.yuritest}},"value": ${{steps.myGetSecretAction.outputs.yurikey}},"slotSetting": false}'
         
 
    
