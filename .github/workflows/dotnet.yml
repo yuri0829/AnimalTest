@@ -57,11 +57,6 @@ jobs:
       with:
         name: a
         
-    - name: Run Az CLI script
-      run: |
-        az ad sp create-for-rbac --name "yuritest" --sdk-auth --role contributor \
-         --scopes /subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/sites/AnimalWeb    
-
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
