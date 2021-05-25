@@ -76,6 +76,7 @@ jobs:
         slot-name: 'production'
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: ${{ secrets.APP_SETTINGS }} 
+        id: settings
         
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
