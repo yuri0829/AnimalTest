@@ -56,16 +56,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: a
-        
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'AnimalWeb'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.test}}
-        package: .
-        
+    
     - name: AzureLogin
       uses: azure/login@v1
       with:
@@ -76,6 +67,19 @@ jobs:
         keyvault: "yuritest"
         secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
         id: myGetSecretAction
+    
+    
+    
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'AnimalWeb'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.test}}
+        package: .
+        
+   
         
         
     - name: Azure App Service Settings
