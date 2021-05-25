@@ -63,7 +63,7 @@ jobs:
       with:
         app-name: 'AnimalWeb'
         slot-name: 'production'
-        publish-profile: ${{ secret.test}}
+        publish-profile: ${{ secrets.test}}
         package: .
         
     - name: AzureLogin
