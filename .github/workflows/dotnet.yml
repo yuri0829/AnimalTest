@@ -71,14 +71,13 @@ jobs:
       with:
         keyvault: "yuritest"
         secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
-        id: myGetSecretAction
-        
+        id: myGetSecretAction      
     - uses: Azure/appservice-settings@v1
       with:
     # Name of the Azure Web App
         app-name: AnimalWeb
     # Name of an existing slot other than the production slot. Default value is production
-        slot-name: production
+        slot-name: animalweb
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: '[{"name": ${{env.GlobalPassword}},"value": ${{env.Value}},"slotSetting": false}]'  
     
