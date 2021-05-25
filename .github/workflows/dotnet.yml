@@ -56,6 +56,11 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: a
+        
+    - name: Run Az CLI script
+      run: |
+        az ad sp create-for-rbac --name "yuritest" --sdk-auth --role contributor \
+         --scopes /subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/sites/AnimalWeb    
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
@@ -76,10 +81,6 @@ jobs:
         secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
         id: myGetSecretAction
         
-    - name: Run Az CLI script
-      run: |
-        az ad sp create-for-rbac --name "yuritest" --sdk-auth --role contributor \
-         --scopes /subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/sites/AnimalWeb    
         
     - name: Azure App Service Settings
       uses: Azure/appservice-settings@v1
