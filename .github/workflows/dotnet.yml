@@ -45,10 +45,6 @@ jobs:
         path: ${{env.DOTNET_ROOT}}/Animaltest
        # The desired behavior if no files are found using the provided path.
   deploy:
-    env: 
-      GlobalPassword: GlobalPassword
-      Value: 1234
-      
     runs-on: windows-latest
     needs: build
     environment:
@@ -79,8 +75,8 @@ jobs:
     # Name of an existing slot other than the production slot. Default value is production
         slot-name: animalweb
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
-        app-settings-json: '[{"name": ${{env.GlobalPassword}},"value": ${{env.Value}},"slotSetting": false}]'  
-    
+        app-settings-json: '${{ secrets.APP_SETTINGS }}'   
+        
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
@@ -90,5 +86,3 @@ jobs:
         publish-profile: ${{ secrets.test}}
         package: .
         
-
-   
