@@ -69,7 +69,7 @@ jobs:
     - name: AzureLogin
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.test }}
     - uses: Azure/get-keyvault-secrets@v1
       with:
         keyvault: "yuritest"
