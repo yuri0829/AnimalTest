@@ -71,9 +71,9 @@ jobs:
     - uses: Azure/appservice-settings@v1
       with:
     # Name of the Azure Web App
-        app-name: AnimalWeb
+        app-name: 'AnimalWeb'
     # Name of an existing slot other than the production slot. Default value is production
-        slot-name: production
+        slot-name: 'production'
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: '${{ secrets.APP_SETTINGS }}'   
         
