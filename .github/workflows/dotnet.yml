@@ -88,6 +88,16 @@ jobs:
         publish-profile: ${{ secrets.test}}
         package: .
         
+        
+    - name: Azure CLI Action
+      uses: Azure/cli@1.0.4
+      with:
+      # Specify the script here
+        inlineScript: 
+          az deployment group create --name ExampleDeployment --resource-group 'test' --template-file ${{ github.WORKSPACE }}/deploy.json --parameters storageAccountType=Standard_GRS     
+      # Azure CLI version to be used to execute the script. If not provided, latest version is used
+        azcliversion: default
+        
     - name: Deploy Azure Resource Manager (ARM) Template
       uses: Azure/arm-deploy@v1
       with:
