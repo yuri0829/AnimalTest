@@ -94,6 +94,8 @@ jobs:
     - name: Deploy Azure Resource Manager (ARM) Template
       uses: Azure/arm-deploy@v1
       with:
-    # Specify the path or URL to the Azure Resource Manager template.
+        # Provide the name of a resource group, only required for resource Group deployments.
+        resourceGroupName: 'test'    
+        # Specify the path or URL to the Azure Resource Manager template.
         template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
  
