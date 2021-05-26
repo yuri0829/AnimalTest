@@ -1,0 +1,100 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    env:
+      GitHubPackageFeedUrl: https://nuget.pkg.github.com/(your-organisation-name)/index.json
+      LogicProjectPath: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logic
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+        source-url: ${{ env.GitHubPackageFeedUrl }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub automatically creates a GITHUB_TOKEN secret to use in your workflow
+    
+    - name: Package up project
+      run: dotnet pack --configuration Release ${{ env.LogicProjectPath }}
+
+    - name: Push package to GitHub registry
+      run: dotnet nuget push ${{ env.LogicProjectPath }}/**/*.nupkg --skip-duplicate
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/Animaltest
+    - name: Test
+      run: dotnet test --filter FullyQualifiedName\!~FunctionalTests
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+      # Artifact name
+        name: a
+       # A file, directory or wildcard pattern that describes what to upload
+        path: ${{env.DOTNET_ROOT}}/Animaltest
+       # The desired behavior if no files are found using the provided path.
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: a
+        
+        
+    - name: AzureLogin
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        allow-no-subscriptions: true
+    - uses: Azure/get-keyvault-secrets@v1
+      with:
+        keyvault: "yuritest"
+        secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
+        id: myGetSecretAction      
+    - uses: Azure/appservice-settings@v1
+      with:
+    # Name of the Azure Web App
+        app-name: 'AnimalWeb'
+    # Name of an existing slot other than the production slot. Default value is production
+        slot-name: 'production'
+    # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
+        app-settings-json: ${{ secrets.APP_SETTINGS }} 
+        id: settings
+        
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'AnimalWeb'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.test}}
+        package: .
+        
+    - name: Deploy Azure Resource Manager (ARM) Template
+      uses: Azure/arm-deploy@v1
+      with:
+    # Override the Subscription Id set by Azure Login.
+        subscriptionId: 'c2dc5fc9-8581-4f11-892f-965db988b266'
+    # Provide the name of a resource group, only required for resource Group deployments.
+        resourceGroupName: 'test'
+    # Specify the path or URL to the Azure Resource Manager template.
+        template: ${{ github.WORKSPACE }}/deploy.json
+ 
