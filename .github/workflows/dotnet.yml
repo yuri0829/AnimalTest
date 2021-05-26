@@ -46,7 +46,7 @@ jobs:
         path: ${{env.DOTNET_ROOT}}/Animaltest
        # The desired behavior if no files are found using the provided path.
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'production'
