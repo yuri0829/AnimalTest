@@ -74,7 +74,7 @@ jobs:
     - name: Deploy Azure Resource Manager (ARM) Template        
       uses: Azure/arm-deploy@v1
       with:
-        creds: ${{ secrets.APP_SETTINGS }} 
+        scope: subscription
         subscriptionId: 'c2dc5fc9-8581-4f11-892f-965db988b266'
         resourceGroupName: 'test'
         template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
