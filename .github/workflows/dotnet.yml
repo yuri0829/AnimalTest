@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: test cred
+      run: echo ${{ secrets.AZURE_CREDENTIALS }}
+      
+      
+      
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -74,12 +79,15 @@ jobs:
     - name: Deploy Azure Resource Manager (ARM) Template        
       uses: Azure/arm-deploy@v1
       with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         scope: subscription
         subscriptionId: 'c2dc5fc9-8581-4f11-892f-965db988b266'
         region: koreacentral
         resourceGroupName: 'test'
         template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
         deploymentName: 'test'
+        
+ 
 
     - uses: Azure/appservice-settings@v1
       with:
