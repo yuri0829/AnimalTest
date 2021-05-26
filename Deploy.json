@@ -1,0 +1,439 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "variables": {
+      "keyVaultSecretNameSimulatedFailureChance": "SimulatedFailureChance",
+      "keyVaultSecretNameGlobalPassword": "GlobalPassword"
+  },
+  "resources": [
+    {
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "StorageV2",
+      "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Storage/storageAccounts/animaltest",
+      "name": "animaltest",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2018-11-01",
+      "location": "koreacentral",
+      "tags": {},
+      "properties": {
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": true,
+        "allowSharedKeyAccess": true,
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+          "services": {
+            "file": {
+              "enabled": true,
+              "lastEnabledTime": "2021-05-26T01:45:57.8542761Z"
+            },
+            "blob": {
+              "enabled": true,
+              "lastEnabledTime": "2021-05-26T01:45:57.8542761Z"
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot",
+        "provisioningState": "Succeeded",
+        "creationTime": "2021-05-26T01:45:57.8074266Z",
+        "primaryEndpoints": {
+          "dfs": "https://animaltest.dfs.core.windows.net/",
+          "web": "https://animaltest.z12.web.core.windows.net/",
+          "blob": "https://animaltest.blob.core.windows.net/",
+          "queue": "https://animaltest.queue.core.windows.net/",
+          "table": "https://animaltest.table.core.windows.net/",
+          "file": "https://animaltest.file.core.windows.net/"
+        },
+        "primaryLocation": "koreacentral",
+        "statusOfPrimary": "available"
+      }
+    },
+    {
+      "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.KeyVault/vaults/yuritest",
+      "name": "yuritest",
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2018-11-01",
+      "location": "koreacentral",
+      "tags": {},
+      "properties": {
+        "sku": {
+          "family": "A",
+          "name": "Standard"
+        },
+        "tenantId": "a74b5451-a280-4768-a5cd-cb47af153c71",
+        "accessPolicies": [
+          {
+            "tenantId": "a74b5451-a280-4768-a5cd-cb47af153c71",
+            "objectId": "359ff323-804e-4228-a1f9-87fc72636a38",
+            "applicationId": "c066b665-4d4f-415a-9697-bed470643a18",
+            "permissions": {
+              "keys": [
+                "Get",
+                "List",
+                "Update",
+                "Create",
+                "Import",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "secrets": [
+                "Get",
+                "List",
+                "Set",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "certificates": [
+                "Get",
+                "Update",
+                "List",
+                "Create",
+                "Import"
+              ]
+            }
+          },
+          {
+            "tenantId": "a74b5451-a280-4768-a5cd-cb47af153c71",
+            "objectId": "d28041ed-7133-4a9d-9509-8511845c3b08",
+            "permissions": {
+              "keys": [
+                "Get",
+                "List",
+                "Update",
+                "Create",
+                "Import",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "secrets": [
+                "Get",
+                "List",
+                "Set",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "certificates": [
+                "Get",
+                "List",
+                "Update",
+                "Create",
+                "Import",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore",
+                "ManageContacts",
+                "ManageIssuers",
+                "GetIssuers",
+                "ListIssuers",
+                "SetIssuers",
+                "DeleteIssuers"
+              ]
+            }
+          },
+          {
+            "tenantId": "a74b5451-a280-4768-a5cd-cb47af153c71",
+            "objectId": "048c55c2-a046-47ec-9131-e310cd4334e5",
+            "permissions": {
+              "secrets": [
+                "get",
+                "list"
+              ]
+            }
+          }
+        ],
+        "enabledForDeployment": false,
+        "enabledForDiskEncryption": false,
+        "enabledForTemplateDeployment": true,
+        "enableSoftDelete": true,
+        "softDeleteRetentionInDays": 90,
+        "enableRbacAuthorization": false,
+        "vaultUri": "https://yuritest.vault.azure.net/",
+        "provisioningState": "Succeeded"
+      }
+    },
+    {
+      "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/serverfarms/ASP-test-983f",
+      "name": "ASP-test-983f",
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-11-01",
+      "kind": "app",
+      "location": "Korea Central",
+      "properties": {
+        "serverFarmId": 21091,
+        "name": "ASP-test-983f",
+        "workerSize": 0,
+        "workerSizeId": 0,
+        "workerTierName": null,
+        "numberOfWorkers": 1,
+        "currentWorkerSize": 0,
+        "currentWorkerSizeId": 0,
+        "currentNumberOfWorkers": 1,
+        "status": 0,
+        "webSpace": "test-KoreaCentralwebspace",
+        "subscription": "c2dc5fc9-8581-4f11-892f-965db988b266",
+        "adminSiteName": null,
+        "hostingEnvironment": null,
+        "hostingEnvironmentProfile": null,
+        "maximumNumberOfWorkers": 10,
+        "planName": "VirtualDedicatedPlan",
+        "adminRuntimeSiteName": null,
+        "computeMode": 1,
+        "siteMode": null,
+        "geoRegion": "Korea Central",
+        "perSiteScaling": false,
+        "elasticScaleEnabled": false,
+        "maximumElasticWorkerCount": 1,
+        "numberOfSites": 2,
+        "hostingEnvironmentId": null,
+        "isSpot": false,
+        "spotExpirationTime": null,
+        "freeOfferExpirationTime": null,
+        "tags": null,
+        "kind": "app",
+        "resourceGroup": "test",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "mdmId": "waws-prod-se1-005_21091",
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0,
+        "provisioningState": "Succeeded",
+        "webSiteId": null,
+        "existingServerFarmIds": null,
+        "kubeEnvironmentProfile": null,
+        "azBalancing": null
+      },
+      "sku": {
+        "name": "S1",
+        "tier": "Standard",
+        "size": "S1",
+        "family": "S",
+        "capacity": 1
+      }
+    },
+    {
+      "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/sites/AnimalWeb",
+      "name": "AnimalWeb",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "kind": "app",
+      "location": "Korea Central",
+      "properties": {
+        "name": "AnimalWeb",
+        "state": "Running",
+        "hostNames": [
+          "animalweb.azurewebsites.net"
+        ],
+        "webSpace": "test-KoreaCentralwebspace",
+        "selfLink": "https://waws-prod-se1-005.api.azurewebsites.windows.net:454/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/webspaces/test-KoreaCentralwebspace/sites/AnimalWeb",
+        "repositorySiteName": "AnimalWeb",
+        "owner": null,
+        "usageState": 0,
+        "enabled": true,
+        "adminEnabled": true,
+        "enabledHostNames": [
+          "animalweb.azurewebsites.net",
+          "animalweb.scm.azurewebsites.net"
+        ],
+        "siteProperties": {
+          "metadata": null,
+          "properties": [
+            {
+              "name": "LinuxFxVersion",
+              "value": ""
+            },
+            {
+              "name": "WindowsFxVersion",
+              "value": null
+            }
+          ],
+          "appSettings": null
+        },
+        "availabilityState": 0,
+        "sslCertificates": null,
+        "csrs": [],
+        "cers": null,
+        "siteMode": null,
+        "hostNameSslStates": [
+          {
+            "name": "animalweb.azurewebsites.net",
+            "sslState": 0,
+            "ipBasedSslResult": null,
+            "virtualIP": null,
+            "thumbprint": null,
+            "toUpdate": null,
+            "toUpdateIpBasedSsl": null,
+            "ipBasedSslState": 0,
+            "hostType": 0
+          },
+          {
+            "name": "animalweb.scm.azurewebsites.net",
+            "sslState": 0,
+            "ipBasedSslResult": null,
+            "virtualIP": null,
+            "thumbprint": null,
+            "toUpdate": null,
+            "toUpdateIpBasedSsl": null,
+            "ipBasedSslState": 0,
+            "hostType": 1
+          }
+        ],
+        "computeMode": null,
+        "serverFarm": null,
+        "serverFarmId": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Web/serverfarms/ASP-test-983f",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "lastModifiedTimeUtc": "2021-05-25T04:33:24.5",
+        "storageRecoveryDefaultState": "Running",
+        "contentAvailabilityState": 0,
+        "runtimeAvailabilityState": 0,
+        "siteConfig": {
+          "numberOfWorkers": 1,
+          "defaultDocuments": null,
+          "netFrameworkVersion": null,
+          "phpVersion": null,
+          "pythonVersion": null,
+          "nodeVersion": null,
+          "powerShellVersion": null,
+          "linuxFxVersion": "",
+          "windowsFxVersion": null,
+          "requestTracingEnabled": null,
+          "remoteDebuggingEnabled": null,
+          "remoteDebuggingVersion": null,
+          "httpLoggingEnabled": null,
+          "azureMonitorLogCategories": null,
+          "acrUseManagedIdentityCreds": false,
+          "acrUserManagedIdentityID": null,
+          "logsDirectorySizeLimit": null,
+          "detailedErrorLoggingEnabled": null,
+          "publishingUsername": null,
+          "publishingPassword": null,
+          "appSettings": null,
+          "azureStorageAccounts": null,
+          "metadata": null,
+          "connectionStrings": null,
+          "machineKey": null,
+          "handlerMappings": null,
+          "documentRoot": null,
+          "scmType": null,
+          "use32BitWorkerProcess": null,
+          "webSocketsEnabled": null,
+          "alwaysOn": false,
+          "javaVersion": null,
+          "javaContainer": null,
+          "javaContainerVersion": null,
+          "appCommandLine": null,
+          "managedPipelineMode": null,
+          "virtualApplications": null,
+          "winAuthAdminState": null,
+          "winAuthTenantState": null,
+          "customAppPoolIdentityAdminState": null,
+          "customAppPoolIdentityTenantState": null,
+          "runtimeADUser": null,
+          "runtimeADUserPassword": null,
+          "loadBalancing": null,
+          "routingRules": null,
+          "experiments": null,
+          "limits": null,
+          "autoHealEnabled": null,
+          "autoHealRules": null,
+          "tracingOptions": null,
+          "vnetName": null,
+          "vnetRouteAllEnabled": null,
+          "vnetPrivatePortsCount": null,
+          "publicNetworkAccess": null,
+          "cors": null,
+          "push": null,
+          "apiDefinition": null,
+          "apiManagementConfig": null,
+          "autoSwapSlotName": null,
+          "localMySqlEnabled": null,
+          "managedServiceIdentityId": null,
+          "xManagedServiceIdentityId": null,
+          "keyVaultReferenceIdentity": null,
+          "ipSecurityRestrictions": null,
+          "scmIpSecurityRestrictions": null,
+          "scmIpSecurityRestrictionsUseMain": null,
+          "http20Enabled": false,
+          "minTlsVersion": null,
+          "scmMinTlsVersion": null,
+          "ftpsState": null,
+          "preWarmedInstanceCount": null,
+          "functionAppScaleLimit": 0,
+          "healthCheckPath": null,
+          "fileChangeAuditEnabled": null,
+          "functionsRuntimeScaleMonitoringEnabled": null,
+          "websiteTimeZone": null,
+          "minimumElasticInstanceCount": 0
+        },
+        "deploymentId": "AnimalWeb",
+        "slotName": null,
+        "trafficManagerHostNames": null,
+        "sku": "Standard",
+        "scmSiteAlsoStopped": false,
+        "targetSwapSlot": null,
+        "hostingEnvironment": null,
+        "hostingEnvironmentProfile": null,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "clientCertMode": 0,
+        "clientCertExclusionPaths": null,
+        "hostNamesDisabled": false,
+        "domainVerificationIdentifiers": null,
+        "customDomainVerificationId": "CC785F8B31553FF685AE1AAB8201B3E5E82279EA8C8794450756CF55CE2D8A58",
+        "kind": "app",
+        "inboundIpAddress": "52.231.77.58",
+        "possibleInboundIpAddresses": "52.231.77.58",
+        "ftpUsername": "AnimalWeb\\$AnimalWeb",
+        "ftpsHostName": "ftps://waws-prod-se1-005.ftp.azurewebsites.windows.net/site/wwwroot",
+        "outboundIpAddresses": "52.231.77.58,52.231.73.183,52.231.71.204,52.231.66.104,52.231.77.171",
+        "possibleOutboundIpAddresses": "52.231.77.58,52.231.73.183,52.231.71.204,52.231.66.104,52.231.77.171,52.231.69.238,52.231.78.172,52.231.69.251",
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "suspendedTill": null,
+        "siteDisabledReason": 0,
+        "functionExecutionUnitsCache": null,
+        "maxNumberOfWorkers": null,
+        "homeStamp": "waws-prod-se1-005",
+        "cloningInfo": null,
+        "hostingEnvironmentId": null,
+        "tags": null,
+        "resourceGroup": "test",
+        "defaultHostName": "animalweb.azurewebsites.net",
+        "slotSwapStatus": null,
+        "keyVaultReferenceIdentity": "SystemAssigned",
+        "httpsOnly": false,
+        "redundancyMode": 0,
+        "inProgressOperationId": null,
+        "geoDistributions": null,
+        "privateEndpointConnections": [],
+        "buildVersion": null,
+        "targetBuildVersion": null,
+        "migrationState": null,
+        "eligibleLogCategories": "AppServiceAppLogs,AppServiceAuditLogs,AppServiceConsoleLogs,AppServiceHTTPLogs,AppServiceIPSecAuditLogs,AppServicePlatformLogs,ScanLogs",
+        "storageAccountRequired": false,
+        "virtualNetworkSubnetId": null
+      }
+    }
+  ],
+  "outputs": {}
+} 
