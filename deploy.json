@@ -7,10 +7,61 @@
   },
   "resources": [
     {
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "StorageV2",
+      "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.Storage/storageAccounts/animaltest",
+      "name": "animaltest",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2018-11-01",
+      "location": "koreacentral",
+      "tags": {},
+      "properties": {
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": true,
+        "allowSharedKeyAccess": true,
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+          "services": {
+            "file": {
+              "enabled": true,
+              "lastEnabledTime": "2021-05-26T01:45:57.8542761Z"
+            },
+            "blob": {
+              "enabled": true,
+              "lastEnabledTime": "2021-05-26T01:45:57.8542761Z"
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot",
+        "provisioningState": "Succeeded",
+        "creationTime": "2021-05-26T01:45:57.8074266Z",
+        "primaryEndpoints": {
+          "dfs": "https://animaltest.dfs.core.windows.net/",
+          "web": "https://animaltest.z12.web.core.windows.net/",
+          "blob": "https://animaltest.blob.core.windows.net/",
+          "queue": "https://animaltest.queue.core.windows.net/",
+          "table": "https://animaltest.table.core.windows.net/",
+          "file": "https://animaltest.file.core.windows.net/"
+        },
+        "primaryLocation": "koreacentral",
+        "statusOfPrimary": "available"
+      }
+    },
+    {
       "id": "/subscriptions/c2dc5fc9-8581-4f11-892f-965db988b266/resourceGroups/test/providers/Microsoft.KeyVault/vaults/yuritest",
       "name": "yuritest",
       "type": "Microsoft.KeyVault/vaults",
-      "apiVersion": "2018-11-01",
+      "apiVersion": "2016-10-01",
       "location": "koreacentral",
       "tags": {},
       "properties": {
