@@ -86,7 +86,6 @@ jobs:
       with:
         resourceGroupName: ${{ env.ResourceGroupName }}
         template: https://animaltest.blob.core.windows.net/animal/Deploy.json
-        image: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     - uses: Azure/appservice-settings@v1
       with:
@@ -97,4 +96,16 @@ jobs:
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: ${{ secrets.APP_SETTINGS }} 
         id: settings
+        
+    - uses: Azure/webapps-deploy@v2
+      with:
+    # Name of the Azure Web App
+       app-name: 'AnimalWeb'
+    # Enter an existing Slot other than the Production slot
+       slot-name: 'production'
+    # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
+       package: .
+    # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
+       images: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logic
+
 
