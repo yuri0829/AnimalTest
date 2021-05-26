@@ -80,8 +80,6 @@ jobs:
         resourceGroupName: 'test'
         template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
         deploymentName: 'test'
-        
- 
 
     - uses: Azure/appservice-settings@v1
       with:
