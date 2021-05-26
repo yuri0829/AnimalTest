@@ -83,7 +83,7 @@ jobs:
         
            
     - name: Deploy Azure Resource Manager (ARM) Template        
-    - uses: whiteducksoftware/azure-arm-action@v3.2
+      uses: whiteducksoftware/azure-arm-action@v3.2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         resourceGroupName: test
