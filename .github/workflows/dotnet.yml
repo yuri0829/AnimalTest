@@ -95,7 +95,7 @@ jobs:
         app-name: 'AnimalWeb'
     # Name of an existing slot other than the production slot. Default value is production
         slot-name: 'production'
-        publish-profile: ${{ secrets.test}}
+       # publish-profile: ${{ secrets.test}}
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: ${{ secrets.APP_SETTINGS }} 
         id: settings
