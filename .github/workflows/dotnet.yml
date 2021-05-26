@@ -81,6 +81,8 @@ jobs:
         app-settings-json: ${{ secrets.APP_SETTINGS }} 
         id: settings
         
+        
+        
     - name: Deploy Azure Resource Manager (ARM) Template        
     - uses: whiteducksoftware/azure-arm-action@v3.2
       with:
