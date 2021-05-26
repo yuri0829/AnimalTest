@@ -69,7 +69,16 @@ jobs:
         keyvault: "yuritest"
         secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
         id: myGetSecretAction      
-     
+   
+  
+    - name: Deploy Azure Resource Manager (ARM) Template        
+      uses: Azure/arm-deploy@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        resourceGroupName: test
+        template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
+        deploymentName: test
+
     - uses: Azure/appservice-settings@v1
       with:
     # Name of the Azure Web App
@@ -82,11 +91,5 @@ jobs:
         id: settings
         
            
-    - name: Deploy Azure Resource Manager (ARM) Template        
-      uses: whiteducksoftware/azure-arm-action@v3.2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        resourceGroupName: test
-        templateLocation: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
-        deploymentName: test
+  
 
