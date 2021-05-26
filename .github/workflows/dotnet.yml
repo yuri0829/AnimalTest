@@ -27,9 +27,10 @@ jobs:
 
     - name: Push package to GitHub registry
       run: dotnet nuget push ${{ env.LogicProjectPath }}/**/*.nupkg --skip-duplicate
-
-    - name: Restore
-      run: dotnet restore.
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
     - name: Build
       run: dotnet build --configuration Release
     - name: Publish
