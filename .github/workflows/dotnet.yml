@@ -95,5 +95,5 @@ jobs:
     # Provide the name of a resource group, only required for resource Group deployments.
         resourceGroupName: 'test'
     # Specify the path or URL to the Azure Resource Manager template.
-        template: ${{ github.WORKSPACE }}deploy.json
+        template: ${{ github.WORKSPACE }}/deploy.json
  
