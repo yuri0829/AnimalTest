@@ -88,7 +88,6 @@ jobs:
         resourceGroupName: ${{ env.ResourceGroupName }}
         template: https://animaltest.blob.core.windows.net/animal/Deploy.json
 
-
     - uses: Azure/appservice-settings@v1
       with:
     # Name of the Azure Web App
