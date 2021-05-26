@@ -8,7 +8,7 @@ jobs:
   build:
     env:
       GitHubPackageFeedUrl: https://nuget.pkg.github.com/(your-organisation-name)/index.json
-      LogicProjectPath: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logic
+      LogicProjectPath: ${{ github.WORKSPACE }}AnimalAdoption.Common.Logic
 
     runs-on: ubuntu-latest
 
@@ -28,8 +28,8 @@ jobs:
     - name: Push package to GitHub registry
       run: dotnet nuget push ${{ env.LogicProjectPath }}/**/*.nupkg --skip-duplicate
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore ```````
+      run: dotnet restore.
     - name: Build
       run: dotnet build --configuration Release
     - name: Publish
@@ -87,3 +87,13 @@ jobs:
         publish-profile: ${{ secrets.test}}
         package: .
         
+    - name: Deploy Azure Resource Manager (ARM) Template
+      uses: Azure/arm-deploy@v1
+      with:
+    # Override the Subscription Id set by Azure Login.
+        subscriptionId: 'c2dc5fc9-8581-4f11-892f-965db988b266'
+    # Provide the name of a resource group, only required for resource Group deployments.
+        resourceGroupName: 'test'
+    # Specify the path or URL to the Azure Resource Manager template.
+        template: ${{ github.WORKSPACE }}deploy.json
+ 
