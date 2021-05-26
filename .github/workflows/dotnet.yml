@@ -13,10 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: test cred
-      run: echo ${{ secrets.AZURE_CREDENTIALS }}
-      
-      
       
     - uses: actions/checkout@v2
     - name: Setup .NET
