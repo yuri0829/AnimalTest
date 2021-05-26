@@ -105,7 +105,5 @@ jobs:
        slot-name: 'production'
     # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
        package: .
-    # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
-       images: ${{ github.WORKSPACE }}/AnimalAdoption.Common.Logic
 
 
