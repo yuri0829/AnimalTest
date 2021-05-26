@@ -47,6 +47,10 @@ jobs:
         path: ${{env.DOTNET_ROOT}}/Animaltest
        # The desired behavior if no files are found using the provided path.
   deploy:
+    env:
+      ResourceGroupName : test
+      ResourceGroupLoaction: koreacentral
+      
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -58,32 +62,31 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: a
-        
-        
+            
     - name: AzureLogin
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        allow-no-subscriptions: true
     - uses: Azure/get-keyvault-secrets@v1
       with:
         keyvault: "yuritest"
         secrets: 'yurikey'  # comma separated list of secret keys that need to be fetched from the Key Vault 
-        id: myGetSecretAction    
-                 
-    - name: Deploy Azure Resource Manager (ARM) Template
-      uses: Azure/arm-deploy@v1
+        id: myGetSecretAction
+    - uses: Azure/CLI@v1
       with:
-     # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
-       scope: subscription
-    # Override the Subscription Id set by Azure Login.
-       subscriptionId: 'c2dc5fc9-8581-4f11-892f-965db988b266'
-    # Provide the target region, only required for management Group or Subscription deployments.
-       region: koreacentral
-    # Provide the name of a resource group, only required for resource Group deployments.
-       resourceGroupName: test
-    # Specify the path or URL to the Azure Resource Manager template.
-       template: 'https://animaltest.blob.core.windows.net/animal/Deploy.json'
+        inlineScript: |
+          #!/bin/bash
+          if $(az group exists --name ${{ env.ResourceGroupName }}) ; then
+            echo "Azure resource group already exists, skipping creation..."
+          else
+            az group create --name ${{ env.ResourceGroupName }} --location ${{ env.ResourceGroupLocation }}
+            echo "Azure resource group created"
+          fi
+    - uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: ${{ env.ResourceGroupName }}
+        template: https://animaltest.blob.core.windows.net/animal/Deploy.json
+
 
     - uses: Azure/appservice-settings@v1
       with:
