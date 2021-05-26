@@ -75,6 +75,7 @@ jobs:
       uses: Azure/cli@1.0.4
       with:
     # Specify the script here
+        scop: subscription
         inlineScript: az deployment group create --resource-group yuri --template-uri 'https://animaltest.blob.core.windows.net/animal/Deploy.json' --subscription 'c2dc5fc9-8581-4f11-892f-965db988b266'
         
     - name: Deploy Azure Resource Manager (ARM) Template
