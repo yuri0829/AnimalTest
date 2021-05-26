@@ -94,7 +94,7 @@ jobs:
       with:
       # Specify the script here
         inlineScript: 
-          az deployment group create --name ExampleDeployment --resource-group 'test' --template-file ${{ github.WORKSPACE }}/deploy.json --parameters storageAccountType=Standard_GRS     
+          az deployment group create --name ExampleDeployment --resource-group 'test' --template-file ${{env.DOTNET_ROOT}}/Animaltest/deploy.json --parameters storageAccountType=Standard_GRS     
       # Azure CLI version to be used to execute the script. If not provided, latest version is used
         azcliversion: default
         
