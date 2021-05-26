@@ -86,6 +86,7 @@ jobs:
       with:
         resourceGroupName: ${{ env.ResourceGroupName }}
         template: https://animaltest.blob.core.windows.net/animal/Deploy.json
+        image: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     - uses: Azure/appservice-settings@v1
       with:
@@ -96,4 +97,4 @@ jobs:
     # Application settings using the JSON syntax set as value of secret variable: APP_SETTINGS
         app-settings-json: ${{ secrets.APP_SETTINGS }} 
         id: settings
-    - run: echo "The webapp-url is ${{ steps.settings.outputs.webapp-url }}"
+
