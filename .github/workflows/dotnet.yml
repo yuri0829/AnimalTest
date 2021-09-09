@@ -101,8 +101,8 @@ jobs:
       with:
     # Name of the Azure Web App
        app-name: 'AnimalWeb'
-   # # Enter an existing Slot other than the Production slot
-   #    slot-name: 'production'
+    # Enter an existing Slot other than the Production slot
+       slot-name: 'production'
     # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
        package: .
 
