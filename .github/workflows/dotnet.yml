@@ -52,6 +52,7 @@ jobs:
       ResourceGroupLoaction: koreacentral
       
     runs-on: ubuntu-latest
+    # needs:build 는 build 과정이 끝난 후 하단의 코드 실행함을 의미 
     needs: build
     environment:
       name: 'production'
